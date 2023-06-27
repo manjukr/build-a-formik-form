@@ -10,21 +10,17 @@ function App() {
       email: '',
       password: '',
     },
-    onSubmit: async (values) => {
-      console.log('form:', values);
-      await new Promise((r) => setTimeout(r, 500));
-      alert("Login Successful!! \n"+JSON.stringify(values, null, 2));
+    onSubmit: (values) => {
+      alert("Login Successful!!");
     },
     validate: values => {
       let errors = {};
       if((!values.password)) errors.password = 'Field required';
-      
-      if(
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-          values.email
-        ))  {
-          errors.email = 'Field required';
-        }
+
+      if (!values.email) errors.email = 'Field required';
+      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
+        errors.email = 'Username should be an email'
+      ))
       return errors;
     }
     
@@ -33,12 +29,22 @@ function App() {
     <div>
     <form onSubmit={formik.handleSubmit}>
       <div>Email</div>
-      <input type="text" name="email" id="emailField" onChange={formik.handleChange} 
-      value={formik.values.email} pattern=".+@email\.com" placeholder="jane@email.com"
-      title="Please provide only a email.com corporate email address"/>
-      {formik.errors.email ? <div style={{color: 'red'}}> {formik.errors.email}</div> : null}
+      <input 
+      type="text" 
+      name="email" 
+      id="emailField" 
+      onChange={formik.handleChange} 
+      value={formik.values.email}
+      title="Username should be an email"
+      />
+      {formik.errors.email ? <div id="emailError" style={{color: 'red'}}> {formik.errors.email}</div> : null}
       <div>Password</div>
-      <input type="text" name="password" id ="pswField" onChange={formik.handleChange} value={formik.values.password}/>
+      <input type="text" 
+      name="password" 
+      id ="pswField" 
+      onChange={formik.handleChange} 
+      value={formik.values.password}
+      />
       {formik.errors.password ? <div id ="pswError" style={{color: 'red'}}> {formik.errors.password}</div> : null}
       <button type="submit" id="submitBtn">Submit</button>
   </form>
@@ -47,4 +53,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
 
