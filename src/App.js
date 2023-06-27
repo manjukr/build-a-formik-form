@@ -13,17 +13,17 @@ function App() {
     onSubmit: async (values) => {
       console.log('form:', values);
       await new Promise((r) => setTimeout(r, 500));
-      alert(JSON.stringify(values, null, 2));
+      alert("Login Successful!! \n"+JSON.stringify(values, null, 2));
     },
     validate: values => {
       let errors = {};
-      if((!values.email) || (!values.password)) errors.email, errors.password = 'Field required';
+      if((!values.password)) errors.password = 'Field required';
       
       if(
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
           values.email
         ))  {
-          errors.email = 'Invalid email address';
+          errors.email = 'Field required';
         }
       return errors;
     }
